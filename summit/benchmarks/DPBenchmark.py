@@ -57,13 +57,13 @@ class DeprotectionBenchmark(Experiment):
         #Objectives
 
         des_4 = 'Space Time Yield in kg/L/hr'
-        Domain+= ContinousVariable(name='STY', description=des_4, 
+        domain+= ContinuousVariable(name='STY', description=des_4, 
                                    bounds = [0, 100],
                                    is_objective=True, 
                                    maximize=True)
 
         des_5 = 'Conversion'
-        Domain += ContinuousVariable(name='Conv', description=des_5, 
+        domain += ContinuousVariable(name='Conv', description=des_5, 
                                      bounds=[0, 1], 
                                      is_objective=True, 
                                      maximize = True)
