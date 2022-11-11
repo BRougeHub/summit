@@ -74,7 +74,7 @@ class DeprotectionBenchmark(Experiment):
     def _run(self, conditions, **kwargs):
         tau = float(conditions["tau"])
         C_SM = float(conditions["C_SM"])
-        T = float(conditions["temperature"])
+        T = float(conditions["T"])
         conv, sty, res = self._integrate_equations(tau, C_SM, T)
         conditions[("Conv", "DATA")] = conv
         conditions[("STY", "DATA")] = sty
@@ -85,14 +85,14 @@ class DeprotectionBenchmark(Experiment):
         c_out = C_SM*np.exp(-112.0225*np.exp(-1287.8/T)*tau)
         
         #Add measurement noise
-        c_out += (c_out*self.rng.normal(scale = self.noise_level, size = len(c_out))/100)
+        c_out += (c_out*self.rng.normal(scale = self.noise_level, size = 1))/100)
         
         #Make sure the concentration is not negative
         c_out = max(0, c_out)
         
         #Calculate objectives
-        conv = 1 - (c_out/C_SM)
-        sty = C_SM*conv/tau/1000*60*144.172
+        conv = float(1 - (c_out/C_SM))
+        sty = float(C_SM*conv/tau/1000*60*144.172)
         
         
         return conv, sty, {}
